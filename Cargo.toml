@@ -1,0 +1,22 @@
+[package]
+name = "aoc2025"
+version = "0.1.0"
+edition = "2024"
+
+[profile.release]
+debug = true
+
+[toolchain]
+channel = "nightly"
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "d1_bench"
+harness = false
+
+[[bin]]
+name = "d1"
