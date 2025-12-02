@@ -18,5 +18,12 @@ criterion = "0.3"
 name = "d1_bench"
 harness = false
 
+[[bench]]
+name = "d2_bench"
+harness = false
+
 [[bin]]
 name = "d1"
+
+[[bin]]
+name = "d2"
