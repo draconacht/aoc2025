@@ -22,8 +22,15 @@ harness = false
 name = "d2_bench"
 harness = false
 
+[[bench]]
+name = "d3_bench"
+harness = false
+
 [[bin]]
 name = "d1"
 
 [[bin]]
 name = "d2"
+
+[[bin]]
+name = "d3"
