@@ -10,6 +10,7 @@ debug = true
 channel = "nightly"
 
 [dependencies]
+itertools = "0.14.0"
 
 [dev-dependencies]
 criterion = "0.3"
@@ -30,6 +31,22 @@ harness = false
 name = "d4_bench"
 harness = false
 
+[[bench]]
+name = "d5_bench"
+harness = false
+
+[[bench]]
+name = "d6_bench"
+harness = false
+
+[[bench]]
+name = "d7_bench"
+harness = false
+
+[[bench]]
+name = "d8_bench"
+harness = false
+
 [[bin]]
 name = "d1"
 
@@ -41,3 +58,15 @@ name = "d3"
 
 [[bin]]
 name = "d4"
+
+[[bin]]
+name = "d5"
+
+[[bin]]
+name = "d6"
+
+[[bin]]
+name = "d7"
+
+[[bin]]
+name = "d8"
