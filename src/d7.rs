@@ -33,12 +33,17 @@ fn gradient(start: (u8, u8, u8), end: (u8, u8, u8), offset: f64) -> (u8, u8, u8)
 impl Display for Cell {
 	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
 		let x = match self {
-			Self::Splitter => format!("{}", " ".on_truecolor(60, 40, 40)),
+			Self::Splitter => format!("{}", " ".on_black()),
 			Self::Star => format!("{}", "*".on_yellow()),
 			Self::Hole(0) => format!("{}", " "),
 			Self::Hole(x) => {
-				let (r, g, b) = gradient((40, 40, 40), (255, 40, 40), (*x as f64).log10() / 17.0);
-				format!("{}", " ".on_truecolor(r, g, b))
+				if x % 2 == 0 {
+					let (r, g, b) = gradient((40, 40, 40), (255, 40, 40), (*x as f64).log10() / 17.0);
+					format!("{}", " ".on_truecolor(r, g, b))
+				} else {
+					let (r, g, b) = gradient((40, 40, 40), (255, 40, 40), 0.0);
+					format!("{}", " ".on_truecolor(r, g, b))
+				}
 			}
 		};
 		f.write_str(x.as_str())
@@ -103,9 +108,9 @@ pub fn p2(start: usize, rows: &mut [Vec<Cell>]) -> u64 {
 				_ => continue,
 			}
 		}
-		// print!("\x1B[2J\x1B[1;1H");
-		// println!("{}", Grid(rows.to_vec()));
-		// sleep(Duration::from_millis(90));
+		print!("\x1B[2J\x1B[1;1H");
+		println!("{}", Grid(rows.to_vec()));
+		sleep(Duration::from_millis(90));
 	}
 	let last_row = rows.last().unwrap().iter();
 	last_row.map(|x| if let Cell::Hole(n) = x { *n } else { 0 }).sum()

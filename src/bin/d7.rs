@@ -1,6 +1,6 @@
 use aoc2025::d7;
 
-const FLNAME: &str = "inputs/d7.txt";
+const FLNAME: &str = "inputs/d7_pascal_sample.txt";
 
 fn main() {
 	let (start, mut data) = d7::load(FLNAME).unwrap();
