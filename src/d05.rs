@@ -25,10 +25,7 @@ impl RangeSet {
 	}
 
 	fn sub_len(&self, other: &Self) -> u64 {
-		let toret = match self.intersection(other) {
-			None => self.len(),
-			Some(Self(x0, x1)) => (x0 - self.0) + (self.1 - x1),
-		};
+		
 		// println!(
 		// 	"{:?} | {:?} | {:?} | {:?} ",
 		// 	self,
@@ -36,7 +33,10 @@ impl RangeSet {
 		// 	self.intersection(other),
 		// 	toret
 		// );
-		toret
+		match self.intersection(other) {
+			None => self.len(),
+			Some(Self(x0, x1)) => (x0 - self.0) + (self.1 - x1),
+		}
 	}
 }
 

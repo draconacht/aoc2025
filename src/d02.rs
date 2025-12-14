@@ -40,9 +40,9 @@ pub fn p2_invalid_id(inp: &u64) -> bool {
 	let inp_str = inp.to_string();
 	(0..=(inp_str.len() / 2)).any(|chunk_size| {
 		inp_str.len().is_multiple_of(chunk_size)
-			&& (0..(inp_str.len() / chunk_size)).into_iter().all(|idx| {
-				inp_str[(idx * chunk_size)..((idx + 1) * chunk_size)] == inp_str[..chunk_size]
-			})
+			&& (0..(inp_str.len() / chunk_size))
+				.into_iter()
+				.all(|idx| inp_str[(idx * chunk_size)..((idx + 1) * chunk_size)] == inp_str[..chunk_size])
 	})
 }
 

@@ -1,13 +1,12 @@
-use aoc2025::d6;
+use aoc2025::d10;
 use criterion::{Criterion, criterion_group, criterion_main};
 
-const FLNAME: &str = "inputs/d6.txt";
-
 pub fn criterion_benchmark(c: &mut Criterion) {
-	c.bench_function("day 6 bench", |b| {
+	c.bench_function("day 10 bench", |b| {
 		b.iter(|| {
-			d6::load(FLNAME).unwrap();
-			d6::load_p2(FLNAME).unwrap();
+			let inputs = d10::load("inputs/d10.txt").unwrap();
+			d10::p1(&inputs);
+			d10::p2(&inputs);
 		})
 	});
 }

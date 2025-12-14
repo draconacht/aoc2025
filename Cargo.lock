@@ -18,6 +18,7 @@ dependencies = [
  "colored",
  "criterion",
  "itertools 0.14.0",
+ "regex",
 ]
 
 [[package]]

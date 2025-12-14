@@ -14,7 +14,7 @@ impl<X: Display> Display for Grid<X> {
 		let towrite = self
 			.0
 			.iter()
-			.map(|s| s.iter().map(|cell| format!("{}", cell)).collect::<String>() + "\n")
+			.map(|s| s.iter().map(|cell| format!("{} ", cell)).collect::<String>() + "\n")
 			.collect::<String>();
 		f.write_str(towrite.as_str())
 	}

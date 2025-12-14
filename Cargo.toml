@@ -12,62 +12,91 @@ channel = "nightly"
 [dependencies]
 colored = "3.0.0"
 itertools = "0.14.0"
+regex = "1.12.2"
 
 [dev-dependencies]
 criterion = "0.3"
 
 [[bench]]
-name = "d1_bench"
+name = "d01_bench"
 harness = false
 
 [[bench]]
-name = "d2_bench"
+name = "d02_bench"
 harness = false
 
 [[bench]]
-name = "d3_bench"
+name = "d03_bench"
 harness = false
 
 [[bench]]
-name = "d4_bench"
+name = "d04_bench"
 harness = false
 
 [[bench]]
-name = "d5_bench"
+name = "d05_bench"
 harness = false
 
 [[bench]]
-name = "d6_bench"
+name = "d06_bench"
 harness = false
 
 [[bench]]
-name = "d7_bench"
+name = "d07_bench"
 harness = false
 
 [[bench]]
-name = "d8_bench"
+name = "d08_bench"
+harness = false
+
+[[bench]]
+name = "d09_bench"
+harness = false
+
+[[bench]]
+name = "d10_bench"
+harness = false
+
+[[bench]]
+name = "d11_bench"
+harness = false
+
+[[bench]]
+name = "d12_bench"
 harness = false
 
 [[bin]]
-name = "d1"
+name = "d01"
 
 [[bin]]
-name = "d2"
+name = "d02"
 
 [[bin]]
-name = "d3"
+name = "d03"
 
 [[bin]]
-name = "d4"
+name = "d04"
 
 [[bin]]
-name = "d5"
+name = "d05"
 
 [[bin]]
-name = "d6"
+name = "d06"
 
 [[bin]]
-name = "d7"
+name = "d07"
 
 [[bin]]
-name = "d8"
+name = "d08"
+
+[[bin]]
+name = "d09"
+
+[[bin]]
+name = "d10"
+
+[[bin]]
+name = "d11"
+
+[[bin]]
+name = "d12"

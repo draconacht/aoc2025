@@ -35,7 +35,7 @@ impl Display for Cell {
 		let x = match self {
 			Self::Splitter => format!("{}", " ".on_black()),
 			Self::Star => format!("{}", "*".on_yellow()),
-			Self::Hole(0) => format!("{}", " "),
+			Self::Hole(0) => " ".to_string(),
 			Self::Hole(x) => {
 				if x % 2 == 0 {
 					let (r, g, b) = gradient((40, 40, 40), (255, 40, 40), (*x as f64).log10() / 17.0);

@@ -62,8 +62,7 @@ pub fn p1(grid: &mut Grid<Cell>) -> u32 {
 				continue;
 			}
 			for (x, y) in &dirs {
-				grid.safe_get(offset2d(i, *x), offset2d(j, *y))
-					.map(|x| x.bump_if_wall());
+				if let Some(x) = grid.safe_get(offset2d(i, *x), offset2d(j, *y)) { x.bump_if_wall() }
 			}
 		}
 	}
@@ -83,8 +82,7 @@ pub fn p2(grid: &mut Grid<Cell>) -> u32 {
 				continue;
 			}
 			for (x, y) in &dirs {
-				grid.safe_get(offset2d(i, *x), offset2d(j, *y))
-					.map(|x| x.bump_if_wall());
+				if let Some(x) = grid.safe_get(offset2d(i, *x), offset2d(j, *y)) { x.bump_if_wall() }
 			}
 		}
 	}
@@ -97,8 +95,7 @@ pub fn p2(grid: &mut Grid<Cell>) -> u32 {
 					&& neighbours < 4
 				{
 					for (x, y) in &dirs {
-						grid.safe_get(offset2d(i, *x), offset2d(j, *y))
-							.map(|x| x.debump_if_wall());
+						if let Some(x) = grid.safe_get(offset2d(i, *x), offset2d(j, *y)) { x.debump_if_wall() }
 					}
 					curr += 1;
 					grid.0[i][j].pick();

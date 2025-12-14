@@ -1,6 +1,6 @@
 use std::{
 	cmp::Reverse,
-	collections::{BinaryHeap, HashMap, HashSet},
+	collections::{BinaryHeap, HashMap},
 	fs::read_to_string,
 	path::Path,
 	str::FromStr,
