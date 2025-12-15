@@ -100,14 +100,14 @@ fn p2_solve(inp: &Input) -> u32 {
 	// println!("{}", Grid(m.clone()));
 	let mut mx = Matrix(m);
 	let (ops, free_vars) = mx.reduce();
-	println!("{}", Grid(mx.0.clone()));
+	// println!("{}", Grid(mx.0.clone()));
 	// println!("ops: {:?}", ops);
 	for op in ops {
 		augment_mx.apply(op);
 	}
 	let augment = augment_mx.col(0);
-	println!("augment\n{}", Grid(augment_mx.0.clone()));
-	println!("free vars: {:?}", free_vars);
+	// println!("augment\n{}", Grid(augment_mx.0.clone()));
+	// println!("free vars: {:?}", free_vars);
 
 	let cost: Fraction = augment.clone().into_iter().sum();
 	let mut min_cost = 0u32;
