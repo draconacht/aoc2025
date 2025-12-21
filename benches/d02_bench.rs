@@ -1,7 +1,7 @@
 use aoc2025::d02;
 use criterion::{Criterion, criterion_group, criterion_main};
 
-const FLNAME: &str = "inputs/d2.txt";
+const FLNAME: &str = "inputs/d02.txt";
 
 pub fn criterion_benchmark(c: &mut Criterion) {
 	c.bench_function("day 2 bench", |b| {

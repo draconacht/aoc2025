@@ -10,8 +10,10 @@ debug = true
 channel = "nightly"
 
 [dependencies]
+anyhow = "1.0.100"
 colored = "3.0.0"
 itertools = "0.14.0"
+num-traits = "0.2.19"
 regex = "1.12.2"
 
 [dev-dependencies]
@@ -64,39 +66,3 @@ harness = false
 [[bench]]
 name = "d12_bench"
 harness = false
-
-[[bin]]
-name = "d01"
-
-[[bin]]
-name = "d02"
-
-[[bin]]
-name = "d03"
-
-[[bin]]
-name = "d04"
-
-[[bin]]
-name = "d05"
-
-[[bin]]
-name = "d06"
-
-[[bin]]
-name = "d07"
-
-[[bin]]
-name = "d08"
-
-[[bin]]
-name = "d09"
-
-[[bin]]
-name = "d10"
-
-[[bin]]
-name = "d11"
-
-[[bin]]
-name = "d12"

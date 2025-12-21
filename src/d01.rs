@@ -1,83 +1,76 @@
-use crate::util::errors::MyError;
-use std::{fs::File, io::Read, str::FromStr};
+use crate::qtui::{
+	gauge::Gauge,
+	render::{Renderer, default_colorizer},
+};
 
-const INPUT_FILE: &str = "inputs/d1.txt";
+use super::qtui;
+use anyhow::{Result, bail};
+use itertools::Itertools;
+use std::{fs::read_to_string, path::Path, str::FromStr, time::Duration};
 
 #[derive(Debug, PartialEq)]
-enum Direction {
-	L(u16),
-	R(u16),
-}
+pub struct Rotation(i16);
 
-impl FromStr for Direction {
-	type Err = MyError;
-
-	fn from_str(s: &str) -> Result<Self, Self::Err> {
+impl FromStr for Rotation {
+	type Err = anyhow::Error;
+	fn from_str(s: &str) -> Result<Self> {
 		match s.chars().nth(0) {
-			Some('L') => Ok(Direction::L(u16::from_str(&s[1..])?)),
-			Some('R') => Ok(Direction::R(u16::from_str(&s[1..])?)),
-			Some(_) => Err("invalid char")?,
-			None => Err("stop")?,
+			Some('L') => Ok(Rotation(-s[1..].parse::<i16>()?)),
+			Some('R') => Ok(Rotation(s[1..].parse::<i16>()?)),
+			Some(_) => bail!("invalid char"),
+			None => bail!("stop"),
 		}
 	}
 }
 
-#[derive(Debug, Clone)]
-struct S {
-	angle: i16,
-	zeros: u16,
+pub fn load(flname: impl AsRef<Path>) -> Result<Vec<Rotation>> {
+	let fl = read_to_string(flname)?;
+	fl.lines().map(Rotation::from_str).try_collect()
 }
 
-fn part1(dirs: &[Direction]) -> Result<u16, MyError> {
-	// PART 1
-	let p1 = dirs.iter().fold(S { angle: 50, zeros: 0 }, |mut s, next_dir| {
-		match *next_dir {
-			Direction::L(x) => s.angle = (s.angle - (x % 100) as i16).rem_euclid(100),
-			Direction::R(x) => s.angle = (s.angle + (x % 100) as i16).rem_euclid(100),
-		};
-		if s.angle == 0 {
-			s.zeros += 1
+pub fn p1(dirs: &[Rotation]) -> u16 {
+	let (mut angle, mut zeros) = (50, 0);
+	for dir in dirs {
+		angle = (angle + dir.0).rem_euclid(100);
+		if angle == 0 {
+			zeros += 1;
 		}
-		// println!("{:?}", s);
-		s
-	});
-	Ok(p1.zeros)
+	}
+	zeros
 }
 
-fn part2(dirs: &[Direction]) -> Result<u16, MyError> {
-	// PART 2
-	let p2 = dirs.iter().fold(S { angle: 50, zeros: 0 }, |s, next_dir| {
-		let mut next = s.clone();
-		match *next_dir {
-			Direction::L(x) => {
-				next.angle = (s.angle - (x % 100) as i16).rem_euclid(100);
-				next.zeros += ((100 - s.angle + (x % 100) as i16) / 100) as u16 + (x / 100);
-				if s.angle == 0 {
-					next.zeros -= 1
-				}
-			}
-			Direction::R(x) => {
-				next.angle = (s.angle + (x % 100) as i16).rem_euclid(100);
-				next.zeros += ((s.angle + (x % 100) as i16) / 100) as u16 + (x / 100);
-			}
-		};
-		// println!("{:?}", next);
-		next
-	});
-	Ok(p2.zeros)
+pub fn p2(dirs: &[Rotation]) -> u16 {
+	let (mut angle, mut zeros) = (50, 0);
+	for dir in dirs {
+		let (full_rotations, remainder) = (dir.0 / 100, dir.0 % 100);
+		zeros += full_rotations.unsigned_abs();
+		if angle + remainder <= 0 && angle != 0 || angle + remainder >= 100 {
+			zeros += 1;
+		}
+		angle = (angle + dir.0).rem_euclid(100);
+	}
+	zeros
 }
 
-pub fn run() -> Result<(), MyError> {
-	// LOAD INPUT
-	let mut fl = File::open(INPUT_FILE)?;
-	let mut s = String::new();
-	fl.read_to_string(&mut s)?;
-
-	let dirs = s.lines().map(Direction::from_str).collect::<Result<Vec<_>, _>>()?;
-
-	println!("preview: {:?}", dirs.first_chunk::<10>());
-	println!("part 1: {:?}", part1(&dirs)?);
-	println!("part 2: {:?}", part2(&dirs)?);
-
-	Ok(())
+pub fn vis(dirs: &[Rotation]) -> u16 {
+	let g = Gauge {
+		max_val: 50,
+		size: 100,
+		offset: 0,
+	};
+	let r = Renderer {
+		sleep: Duration::from_millis(500),
+		clrzr: default_colorizer,
+	};
+	let (mut angle, mut zeros) = (50, 0);
+	for dir in dirs {
+		let a = (angle + dir.0).rem_euclid(100);
+		let d_angle = 50 - 2 * ((a + 25).rem_euclid(100) - 50).abs();
+		r.render(&g, d_angle, format!("{} + {} = {}", angle, dir.0, a).as_str());
+		angle = a;
+		if angle == 0 {
+			zeros += 1;
+		}
+	}
+	zeros
 }

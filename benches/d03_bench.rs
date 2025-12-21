@@ -8,7 +8,7 @@ pub fn criterion_benchmark(c: &mut Criterion) {
 		b.iter(|| {
 			let ranges = d03::load(FLNAME).unwrap();
 			d03::p1(&ranges);
-			d03::p2_slower(&ranges);
+			d03::p2(&ranges);
 		})
 	});
 }
