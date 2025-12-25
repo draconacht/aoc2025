@@ -38,15 +38,14 @@ pub fn default_colorizer(clr: Color, ch: char) -> String {
 
 impl Renderer {
 	pub fn render<X>(&self, elem: &impl Element<X>, inp: X, caption: &str) {
-		print!("\x1B[2J\x1B[1;1H");
+		// print!("\x1B[2J\x1B[1;1H");
 		let cells = elem.render(inp);
 		for row in cells {
 			for cell in row {
 				print!("{}", (self.clrzr)(cell.color, cell.text));
 			}
-			println!()
 		}
-		println!("{}", caption);
+		println!(" - {}", caption);
 		sleep(self.sleep);
 	}
 }

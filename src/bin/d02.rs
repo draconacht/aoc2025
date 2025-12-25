@@ -1,6 +1,6 @@
 use aoc2025::d02;
 
-const FLNAME: &str = "inputs/d2.txt";
+const FLNAME: &str = "inputs/d02.txt";
 
 fn main() {
 	let ranges = d02::load(FLNAME).unwrap();

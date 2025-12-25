@@ -1,4 +1,9 @@
-use std::{fs::File, io::Read, str::FromStr};
+use std::{
+	fs::{File, read_to_string},
+	io::Read,
+	path::Path,
+	str::FromStr,
+};
 
 use crate::util::errors::MyError;
 
@@ -14,13 +19,8 @@ impl FromStr for Range {
 	}
 }
 
-pub fn load(fname: &str) -> Result<Vec<Range>, MyError> {
-	let mut fl = File::open(fname)?;
-	let mut s = String::new();
-	fl.read_to_string(&mut s)?;
-
-	let pieces = s.trim().split(",");
-	pieces.map(Range::from_str).collect()
+pub fn load(fname: impl AsRef<Path>) -> Result<Vec<Range>, MyError> {
+	read_to_string(fname)?.trim().split(",").map(Range::from_str).collect()
 }
 
 pub fn p1_invalid_id(inp: &u64) -> bool {
@@ -28,12 +28,11 @@ pub fn p1_invalid_id(inp: &u64) -> bool {
 	inp_str[..inp_str.len() / 2] == inp_str[inp_str.len() / 2..]
 }
 
-pub fn p1(ranges: &Vec<Range>) -> u64 {
-	let mut result: u64 = 0;
-	for range in ranges.iter() {
-		result += (range.0..range.1).filter(p1_invalid_id).sum::<u64>()
-	}
-	result
+pub fn p1(ranges: &[Range]) -> u64 {
+	ranges
+		.iter()
+		.map(|Range(x, y)| (*x..*y).filter(p1_invalid_id).sum::<u64>())
+		.sum()
 }
 
 pub fn p2_invalid_id(inp: &u64) -> bool {
@@ -46,10 +45,9 @@ pub fn p2_invalid_id(inp: &u64) -> bool {
 	})
 }
 
-pub fn p2(ranges: &Vec<Range>) -> u64 {
-	let mut result: u64 = 0;
-	for range in ranges.iter() {
-		result += (range.0..range.1).filter(p2_invalid_id).sum::<u64>()
-	}
-	result
+pub fn p2(ranges: &[Range]) -> u64 {
+	ranges
+		.iter()
+		.map(|Range(x, y)| (*x..*y).filter(p2_invalid_id).sum::<u64>())
+		.sum()
 }
