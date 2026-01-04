@@ -58,10 +58,7 @@ pub fn vis(dirs: &[Rotation]) -> u16 {
 		size: 100,
 		offset: 0,
 	};
-	let r = Renderer {
-		sleep: Duration::from_millis(500),
-		clrzr: default_colorizer,
-	};
+	let mut r = Renderer::new(Duration::from_millis(500), default_colorizer);
 	let (mut angle, mut zeros) = (50, 0);
 	for dir in dirs {
 		let a = (angle + dir.0).rem_euclid(100);

@@ -5,7 +5,6 @@ use regex::Regex;
 
 use crate::util::{
 	errors::MyError,
-	grid::Grid,
 	math::{Fraction, Matrix},
 };
 

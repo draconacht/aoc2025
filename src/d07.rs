@@ -2,7 +2,7 @@ use std::{fmt::Display, fs::read_to_string, path::Path, thread::sleep, time::Dur
 
 use colored::Colorize;
 
-use crate::util::{errors::MyError, grid::Grid};
+use crate::util::errors::MyError;
 
 #[derive(Debug, Clone)]
 pub enum Cell {
@@ -108,8 +108,8 @@ pub fn p2(start: usize, rows: &mut [Vec<Cell>]) -> u64 {
 				_ => continue,
 			}
 		}
-		print!("\x1B[2J\x1B[1;1H");
-		println!("{}", Grid(rows.to_vec()));
+		// print!("\x1B[2J\x1B[1;1H");
+		// println!("{}", Grid(rows.to_vec()));
 		sleep(Duration::from_millis(90));
 	}
 	let last_row = rows.last().unwrap().iter();
